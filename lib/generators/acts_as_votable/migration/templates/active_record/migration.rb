@@ -7,7 +7,8 @@ class ActsAsVotableMigration < ActiveRecord::Migration
 
       t.boolean :vote_flag
 
-      t.timestamps
+      t.date :created_at
+      t.date :updated_at
     end
 
     add_index :votes, [:votable_id, :votable_type]

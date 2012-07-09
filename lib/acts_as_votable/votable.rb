@@ -79,11 +79,12 @@ module ActsAsVotable
       # find the vote
       _votes_ = find_votes({
         :voter_id => options[:voter].id,
-        :voter_type => options[:voter].class.name
+        :voter_type => options[:voter].class.name,
+        :created_at => Date.today
       })
 
       if _votes_.count == 0
-        # this voter has never voted
+        # this voter has not voted today
         vote = ActsAsVotable::Vote.new(
           :votable => self,
           :voter => options[:voter]
