@@ -65,6 +65,18 @@ module ActsAsVotable
     end
     alias :voted_down_for? :voted_down_on?
 
+    def voted_up_today_on? votable
+      votes = find_votes(:votable_id => votable.id, :votable_type => votable.class.name, :vote_flag => true, :created_at => Date.today)
+      votes.size > 0
+    end
+    alias :voted_up_for? :voted_up_on?
+
+    def voted_down_today_on? votable
+      votes = find_votes(:votable_id => votable.id, :votable_type => votable.class.name, :vote_flag => false, :created_at => Date.today)
+      votes.size > 0
+    end
+    alias :voted_down_for? :voted_down_on?
+
     def voted_as_when_voting_on votable
       votes = find_votes(:votable_id => votable.id, :votable_type => votable.class.name)
       return nil if votes.size == 0
